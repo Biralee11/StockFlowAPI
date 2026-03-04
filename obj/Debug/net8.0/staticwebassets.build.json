@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "boCnId7YBOYjKub0FWw7jJEi3udMRkxhIzM05OLau+o=",
+  "Source": "StockFlowAPI",
+  "BasePath": "_content/StockFlowAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
