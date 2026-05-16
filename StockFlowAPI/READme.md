@@ -1,20 +1,32 @@
 # StockFlowAPI
 
-A RESTful API built with C# and .NET 8, designed to manage products and orders for a retail or distribution business.
+A production-ready RESTful API built with C# and .NET 8, designed to manage products and orders for a retail or distribution business.
 
 ## Tech Stack
 - C# / .NET 8
 - ASP.NET Core Web API
 - Entity Framework Core
-- SQLite Database
-- Swagger UI
+- PostgreSQL
+- Docker & Docker Compose
+- Swagger / OpenAPI
 
 ## Features
 - Full CRUD operations for Products and Orders
 - Orders linked to Products with full product details returned
 - Automatic order date stamping
-- Data persists across restarts
-- Swagger UI for API testing and documentation
+- PostgreSQL database with Entity Framework Core migrations
+- Fully containerised with Docker
+- Swagger UI for API documentation and testing
+
+## Running Locally with Docker
+
+Make sure Docker Desktop is running, then:
+
+```bash
+docker-compose up --build
+```
+
+API will be available at: http://localhost:8080/swagger
 
 ## Endpoints
 
