@@ -1,0 +1,16 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# Database files
+*.db
+
+# Mac files
+.DS_Store
+
+# Environment files
+.env
+
+# Visual Studio
+*.user
+.vs/
