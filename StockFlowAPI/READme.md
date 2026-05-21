@@ -27,6 +27,7 @@ A production-ready RESTful API built with C# and .NET 8, designed to manage prod
 
 ## Live Demo
 API Base URL: https://stockflowapi-5ir8.onrender.com
+API Documentation: https://stockflowapi-5ir8.onrender.com/swagger
 
 Test with Postman:
 - Register: POST /api/Auth/register
