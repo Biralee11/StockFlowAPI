@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockFlowAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
@@ -29,22 +31,30 @@ namespace StockFlowAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> Create(Product product)
+        public async Task<ActionResult<Product>> Create(ProductDto request)
         {
+            var product = new Product
+            {
+                Name = request.Name,
+                Category = request.Category,
+                Price = request.Price,
+                Stock = request.Stock
+            };
+        
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, Product updated)
+        public async Task<ActionResult> Update(int id, ProductDto request)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null) return NotFound();
-            product.Name = updated.Name;
-            product.Category = updated.Category;
-            product.Price = updated.Price;
-            product.Stock = updated.Stock;
+            product.Name = request.Name;
+            product.Category = request.Category;
+            product.Price = request.Price;
+            product.Stock = request.Stock;
             await _context.SaveChangesAsync();
             return NoContent();
         }

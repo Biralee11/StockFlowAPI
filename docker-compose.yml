@@ -7,6 +7,8 @@ services:
       POSTGRES_DB: stockflow_db
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   api:
     build: ./StockFlowAPI
@@ -15,5 +17,11 @@ services:
     depends_on:
       - db
     environment:
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=stockflow_db;Username=postgres;Password=postgres"
       ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: ${DB_CONNECTION}
+      Jwt__SecretKey: ${JWT_SECRET_KEY}
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+
+volumes:
+  postgres_data:

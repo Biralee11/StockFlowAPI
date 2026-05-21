@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockFlowAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class OrdersController : ControllerBase
@@ -29,22 +31,29 @@ namespace StockFlowAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> Create(Order order)
+        public async Task<ActionResult<Order>> Create(OrderDto request)
         {
-            order.OrderDate = DateTime.UtcNow;
+            var order = new Order
+            {
+                ProductId = request.ProductId,
+                Quantity = request.Quantity,
+                Status = request.Status,
+                OrderDate = DateTime.UtcNow
+            };
+        
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = order.Id }, order);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update(int id, Order updated)
+        public async Task<ActionResult> Update(int id, OrderDto request)
         {
             var order = await _context.Orders.FindAsync(id);
             if (order == null) return NotFound();
-            order.ProductId = updated.ProductId;
-            order.Quantity = updated.Quantity;
-            order.Status = updated.Status;
+            order.ProductId = request.ProductId;
+            order.Quantity = request.Quantity;
+            order.Status = request.Status;
             await _context.SaveChangesAsync();
             return NoContent();
         }
